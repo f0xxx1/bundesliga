@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  .table td {
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="pt-4 row">
+  <div class="col-md-12">
+    <h2> Season 2018 Matches </h2>
+    <hr />
+    <table class="table table-dark">
+      <tbody>
+        {% for match in season_matches %}
+        <tr>
+          <td>{{ match.Team1.TeamName }}</td>
+          {% if match.MatchIsFinished %}
+            <td>{{ match.MatchResults.0.PointsTeam1}} : {{ match.MatchResults.0.PointsTeam2}}</td>
+          {% else %}
+            <td>vs</td>
+          {% endif %}
+          <td>{{ match.Team2.TeamName }}</td>
+          <td>
+            {% if match.MatchIsFinished %}
+            <span class="text-muted">
+            Date: {{ match.MatchDateTime|slice:"0:10" }}
+            | Match has ended.
+            </span>
+            {% endif %}
+
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% include 'includes/pagination.html' %}
+
+  </div>
+</div>
+
+{% endblock %}

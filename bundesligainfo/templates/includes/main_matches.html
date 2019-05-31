@@ -1,0 +1,25 @@
+<h2> Rankings </h2>
+<hr />
+<table class="table table-dark">
+  <tbody>
+    <tr>
+      <td> # </td>
+      <td> <b>Club</b> </td>
+      <td> <b>W</b> </td>
+      <td> <b>D</b> </td>
+      <td> <b>L</b> </td>
+      <td> <b>P</b> </td>
+    </tr>
+    {% for team in rankings %}
+    <tr>
+      <td> {{ forloop.counter }} </td>
+      <td> {{ team.team_name }} </td>
+      <td> {{ team.wins }} </td>
+      <td> {{ team.draws }} </td>
+      <td> {{ team.loses }} </td>
+      <td> {{ team.points }} </td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>

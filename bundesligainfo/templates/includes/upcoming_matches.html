@@ -1,0 +1,21 @@
+<h2> Upcoming Matches </h2>
+<hr />
+<table class="table table-dark" style="font-size: 80%;">
+
+  <tbody>
+    {% if not upcoming_matches %}
+    <tr>
+      <td> No matches this weekend </td>
+    </tr>
+    {% endif %}
+    {% for match in upcoming_matches %}
+    <tr>
+      <td>{{ match.Team1.TeamName }}</td>
+      <td>vs</td>
+      <td>{{ match.Team2.TeamName }}</td>
+      <td>{{ match.MatchDateTime |slice:"0:10"  }}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
