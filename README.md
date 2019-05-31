@@ -19,6 +19,16 @@ cd bundesliga
 git clone https://github.com/f0xxx1/bundesliga.git
 
 pip install -r requirements.txt
+
+# Create a .env file.
+# Linux
+touch .env
+
+# Windows (PowerShell)
+New-Item -Path '.env' -ItemType File
+
+# Copy the content of env.sample into your .env
+
 python manage.py createcachetable
 python manage.py runserver
 
