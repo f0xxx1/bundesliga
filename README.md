@@ -34,6 +34,11 @@ python manage.py runserver
 
 ```
 
+If you want to simulate the upcoming matches, uncomment the `bundesligainfo.apps.core.openligasdk.openligasdk.py` line: 170.
+
+## Preview
+
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
