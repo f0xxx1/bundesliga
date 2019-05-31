@@ -44,12 +44,14 @@ def current_season_view(request):
     season_matches = None
 
     if cache.get("season_matches") is None:
+        # Getting current Season
         season_matches = openligasdk.get_season("2018", reverse=True)
         cache.set("season_matches", season_matches, 60 * 60)
     else:
         season_matches = cache.get("season_matches")
 
-    season_matches_paginated = season_matches = Paginator(
+    # Paginator: https://docs.djangoproject.com/en/2.2/topics/pagination/
+    season_matches_paginated = Paginator(
         openligasdk.get_season("2018", reverse=True), 15
     ).page(page)
 
