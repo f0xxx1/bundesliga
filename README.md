@@ -38,7 +38,11 @@ If you want to simulate the upcoming matches, uncomment the `bundesligainfo.apps
 
 ## Preview
 
+![index_view](https://raw.githubusercontent.com/f0xxx1/bundesliga/master/project_preview/index_upcoming_matchess.png)
 
+![season_view](https://raw.githubusercontent.com/f0xxx1/bundesliga/master/project_preview/season_view.png)
+
+![search_view](https://raw.githubusercontent.com/f0xxx1/bundesliga/master/project_preview/search_view.png)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
