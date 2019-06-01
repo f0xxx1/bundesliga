@@ -167,7 +167,7 @@ class OpenLigaSDK:
         now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
         # MOCK
-        # now = parser.parse("2019-04-22 00:00:00")
+        now = parser.parse("2019-04-22 00:00:00")
 
         # Getting the current weekend days.
         sunday = now + relativedelta(weekday=SU)
