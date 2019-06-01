@@ -1,12 +1,12 @@
 __author__ = "Dimitar Ganev"
 __email__ = "<dganev@pm.me>"
 
+import requests
 from typing import List, Dict
+from datetime import datetime
+
 from dateutil import parser
 from dateutil.relativedelta import relativedelta, SU, SA
-from datetime import datetime
-import requests
-
 
 class OpenLigaSDK:
     """
