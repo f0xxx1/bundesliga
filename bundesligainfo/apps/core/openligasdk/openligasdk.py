@@ -1,13 +1,11 @@
-from functools import lru_cache
-
 __author__ = "Dimitar Ganev"
 __email__ = "<dganev@pm.me>"
 
+import requests
 from datetime import datetime
 
 from dateutil import parser
 from dateutil.relativedelta import relativedelta, SU, SA
-import requests
 
 
 class OpenLigaSDK:
