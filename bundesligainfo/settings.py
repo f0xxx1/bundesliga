@@ -26,7 +26,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-
+INTERNAL_IPS = config("INTERNAL_IPS", cast=Csv())
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 # Application definition
@@ -38,10 +38,13 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",  # Handy template tags
+    "django.contrib.humanize",
     "django.contrib.admin",
 ]
-THIRD_PARTY_APPS = []
+
+THIRD_PARTY_APPS = [
+    "debug_toolbar"
+]
 
 LOCAL_APPS = ["bundesligainfo.apps.core"]
 
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",

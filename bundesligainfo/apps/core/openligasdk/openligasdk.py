@@ -1,10 +1,12 @@
+from functools import lru_cache
+
 __author__ = "Dimitar Ganev"
 __email__ = "<dganev@pm.me>"
 
-from typing import List, Dict
+from datetime import datetime
+
 from dateutil import parser
 from dateutil.relativedelta import relativedelta, SU, SA
-from datetime import datetime
 import requests
 
 
@@ -22,12 +24,14 @@ class OpenLigaSDK:
     def __init__(self):
         self.api_url = "https://www.openligadb.de/api/"
 
-    def get_season(self, season: str, reverse: bool = False) -> List:
+    def get_season(self, season: str, reverse: bool = False) -> list:
         """
         Args:
             season: the season (ex. 2017, 2018 etc..)
+            reverse: whether the List should be reversed or not.
         Returns:
             A List showing the matches for that season.
+
         """
         route = self.api_url + "/getmatchdata/bl1/" + season
         data = requests.get(route)
@@ -35,7 +39,7 @@ class OpenLigaSDK:
             return data.json()[::-1]
         return data.json()
 
-    def get_rankings(self, season: str) -> Dict:
+    def get_rankings(self, season: str) -> list:
         """
         Getting the ranked for the given season.
 
@@ -90,7 +94,8 @@ class OpenLigaSDK:
 
         return self._sort(rankings)
 
-    def _sort(self, rankings: Dict) -> Dict:
+    @staticmethod
+    def _sort(rankings: dict) -> list:
         """
         Sorting the current rankings based on the points.
 
@@ -103,7 +108,7 @@ class OpenLigaSDK:
             [v for k, v in rankings.items()], key=lambda x: x["points"], reverse=True
         )
 
-    def get_teams(self, season: str) -> List:
+    def get_teams(self, season: str) -> list:
         """
         Args:
             season: the season (ex. 2017, 2018 etc..)
@@ -114,13 +119,12 @@ class OpenLigaSDK:
         data = requests.get(route)
         return data.json()
 
-    def get_weekend_matches(self, season: str) -> List:
+    def get_weekend_matches(self, season: str) -> list:
         """
         Args:
             season: the season (ex. 2017, 2018 etc..)
         Returns:
-            A List with the upcoming matches (if theres any), otherwise
-            None would be given.
+            A List with the upcoming matches (if theres any)
         """
         current_season = self.get_season(season)
         weekdays = self._get_current_week_weekdays_dates()
@@ -133,9 +137,9 @@ class OpenLigaSDK:
                 raise ValueError("Invalid DateTime Format: [MatchDateTime]")
             if match_play_date == weekdays["SA"] or match_play_date == weekdays["SU"]:
                 result.append(match)
-        return result if result else None
+        return result
 
-    def search_team(self, search: str, season: str) -> List:
+    def search_team(self, search: str, season: str) -> list:
         """
         Searching for a team by a given string (search).
 
@@ -160,19 +164,19 @@ class OpenLigaSDK:
         return parser.parse(date).replace(hour=0, minute=0, second=0, microsecond=0)
 
     @staticmethod
-    def _get_current_week_weekdays_dates() -> Dict:
+    def _get_current_week_weekdays_dates() -> dict:
         """
         Returns: Dict, the current weekdays as datetime objects.
         """
         now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
         # MOCK
-        now = parser.parse("2019-04-22 00:00:00")
+        # now = parser.parse("2019-04-22 00:00:00")
 
         # Getting the current weekend days.
         sunday = now + relativedelta(weekday=SU)
         saturday = now + relativedelta(weekday=SA)
 
-        # Probably SAT/SUN would be better but I deciced to keep it consistant
+        # Probably SAT/SUN would be better but I decided to keep it consistent
         # with the decisions by dateutils
         return {"SA": saturday, "SU": sunday}

@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
 from django.core.cache import cache
 from django.core.paginator import Paginator
 
@@ -41,7 +40,6 @@ def current_season_view(request):
     """
     openligasdk = OpenLigaSDK()
     page = request.GET.get("page", 1)
-    season_matches = None
 
     if cache.get("season_matches") is None:
         # Getting current Season
