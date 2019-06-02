@@ -12,16 +12,18 @@ def index_view(request):
     Route: '/'
     """
     openligasdk = OpenLigaSDK()
+    # 1 Hour Cache Time
+    cache_time = 60 * 60
 
     if cache.get("rankings") is None:
         # Get Current Rankings
         rankings = openligasdk.get_rankings("2018")
-        cache.set("rankings", rankings, 60)
+        cache.set("rankings", rankings, cache_time)
 
     if cache.get("upcoming_matches") is None:
         # Get Upcoming Matches
         upcoming_matches = openligasdk.get_weekend_matches("2018")
-        cache.set("upcoming_matches", upcoming_matches, 60)
+        cache.set("upcoming_matches", upcoming_matches, cache_time)
 
     template_name = "core/index.html"
 
@@ -40,11 +42,13 @@ def current_season_view(request):
     """
     openligasdk = OpenLigaSDK()
     page = request.GET.get("page", 1)
+    # 1 Hour Cache Time
+    cache_time = 60 * 60
 
     if cache.get("season_matches") is None:
         # Getting current Season
         season_matches = openligasdk.get_season("2018", reverse=True)
-        cache.set("season_matches", season_matches, 60 * 60)
+        cache.set("season_matches", season_matches, cache_time)
     else:
         season_matches = cache.get("season_matches")
 
